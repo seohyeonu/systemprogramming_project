@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define DATA_DIR       "data/Student"
+#define DATA_DIR       "../../data/Student"
 #define INDEX_PATH     DATA_DIR "/index.dat"
 #define ID_LEN         16
 
@@ -73,76 +73,6 @@ void save_index(IndexEntry *arr, int n) {
     fclose(f);
 }
 
-//─ 학생 추가 모드 ─────────────────────────────────────────────────────────────
-void add_student() {
-    int n;
-    IndexEntry *idx = load_index(&n);
-
-    // 1) 새 번호 결정
-    int new_no = (n>0? idx[n-1].number+1 : 1);
-
-    // 2) 정보 입력
-    char sid[ID_LEN];
-    printf("학번: ");  scanf("%15s", sid);
-    getchar(); // 버퍼정리
-
-    // TODO: 이름/생년월일/학과/학적 상태 입력 및 Student 구조체에 저장
-    // 시간 기록
-    time_t now = time(NULL);
-
-    // 3) 학생 파일 저장
-    char path[128];
-    snprintf(path, sizeof path, "%s/%s.dat", DATA_DIR, sid);
-    FILE *sf = fopen(path, "wb");
-    // fwrite(&student, sizeof student, 1, sf);
-    fclose(sf);
-
-    // 4) index.dat 업데이트
-    idx = realloc(idx, (n+1)*sizeof *idx);
-    idx[n].number        = new_no;
-    strncpy(idx[n].student_id, sid, ID_LEN);
-    idx[n].last_modified = now;
-    save_index(idx, n+1);
-    free(idx);
-
-    printf("학생[%s] 추가 완료 (번호 %d)\n", sid, new_no);
-}
-
-//─ 학생 수정 모드 ─────────────────────────────────────────────────────────────
-void modify_student() {
-    int n;
-    IndexEntry *idx = load_index(&n);
-
-    int no;
-    printf("수정할 번호를 입력하세요: ");
-    scanf("%d", &no);
-    getchar();
-
-    // 인덱스에서 번호 검색
-    int i;
-    for (i = 0; i < n; i++) {
-        if (idx[i].number == no) break;
-    }
-    if (i == n) {
-        printf("해당 번호의 학생이 없습니다.\n");
-        free(idx);
-        return;
-    }
-
-    // 해당 student_id 로 .dat 파일 로드
-    char path[128];
-    snprintf(path, sizeof path, "%s/%s.dat", DATA_DIR, idx[i].student_id);
-    // FILE *sf = fopen(path, "rb+");
-    // TODO: 파일에서 Student 구조체 읽어와 수정 → 덮어쓰기
-    // fclose(sf);
-
-    // 인덱스 최종 수정 시간 갱신
-    idx[i].last_modified = time(NULL);
-    save_index(idx, n);
-    free(idx);
-
-    printf("학생[%s] 정보 수정 완료\n", idx[i].student_id);
-}
 
 //─ 메인 메뉴 ─────────────────────────────────────────────────────────────────
 int main() {
