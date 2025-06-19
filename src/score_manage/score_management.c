@@ -22,6 +22,7 @@ void input_scores_for_subject(const char *subject, const char *prof_dept);
 void modify_score_for_subject(const char *subject);
 
 int main() {
+    require_professor();
     // Ensure necessary directories exist
     struct stat st = {0};
     if (stat(PROFESSOR_DIR, &st) == -1) mkdir(PROFESSOR_DIR, 0755);
