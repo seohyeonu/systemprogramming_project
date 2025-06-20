@@ -5,7 +5,7 @@
 #include <time.h>
 #include "file_io.h"
 
-#define INDEX_PATH "../../data/Student/index.dat"
+#define INDEX_PATH "./data/Student/index.dat"
 #define MAX_LINE 256
 
 typedef struct {
@@ -16,7 +16,7 @@ typedef struct {
 
 bool add_index_entry(const char* student_id, const char* timestamp) {
     FILE* read_fp = open_file(INDEX_PATH, "r");
-    FILE* temp_fp = fopen("../../data/Student/index_temp.dat", "w");
+    FILE* temp_fp = fopen("./data/Student/index_temp.dat", "w");
     if (read_fp == NULL || temp_fp == NULL) {
         perror("Error accessing index file");
         exit(EXIT_FAILURE);
@@ -48,7 +48,7 @@ bool add_index_entry(const char* student_id, const char* timestamp) {
     close_file(read_fp);
     close_file(temp_fp);
     remove(INDEX_PATH);
-    rename("../../data/Student/index_temp.dat", INDEX_PATH);
+    rename("./data/Student/index_temp.dat", INDEX_PATH);
     return true;
 }
 
@@ -72,7 +72,7 @@ bool index_has_student(const char* student_id) {
 
 bool delete_index_entry(const char* student_id) {
     FILE* read_fp = open_file(INDEX_PATH, "r");
-    FILE* temp_fp = fopen("../../data/Student/index_temp.dat", "w");
+    FILE* temp_fp = fopen("./data/Student/index_temp.dat", "w");
     if (read_fp == NULL || temp_fp == NULL) {
         perror("Error accessing index file");
         exit(EXIT_FAILURE);
@@ -96,13 +96,13 @@ bool delete_index_entry(const char* student_id) {
     close_file(read_fp);
     close_file(temp_fp);
     remove(INDEX_PATH);
-    rename("../../data/Student/index_temp.dat", INDEX_PATH);
+    rename("./data/Student/index_temp.dat", INDEX_PATH);
     return true;
 }
 
 bool update_index_timestamp(const char* student_id, const char* new_timestamp) {
     FILE* read_fp = open_file(INDEX_PATH, "r");
-    FILE* temp_fp = fopen("../../data/Student/index_temp.dat", "w");
+    FILE* temp_fp = fopen("./data/Student/index_temp.dat", "w");
     if (read_fp == NULL || temp_fp == NULL) {
         perror("Error accessing index file");
         exit(EXIT_FAILURE);
@@ -126,6 +126,6 @@ bool update_index_timestamp(const char* student_id, const char* new_timestamp) {
     close_file(read_fp);
     close_file(temp_fp);
     remove(INDEX_PATH);
-    rename("../../data/Student/index_temp.dat", INDEX_PATH);
+    rename("./data/Student/index_temp.dat", INDEX_PATH);
     return true;
 }

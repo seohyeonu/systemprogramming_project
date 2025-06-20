@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "file_io.h"
 
-#define STUDENT_FOLDER "../../data/Student/"
+#define STUDENT_FOLDER "./data/Student/"
 #define MAX_LINE 256
 
 bool create_student_file(const char* student_id, const char* name, const char* birth, const char* department, const char* status) {
@@ -29,7 +29,7 @@ bool update_student_status(const char* student_id, const char* new_status) {
     snprintf(path, sizeof(path), "%s%s.dat", STUDENT_FOLDER, student_id);
 
     FILE* read_fp = open_file(path, "r");
-    FILE* temp_fp = fopen("../../data/Student/temp_student.dat", "w");
+    FILE* temp_fp = fopen("./data/Student/temp_student.dat", "w");
     if (read_fp == NULL || temp_fp == NULL) {
         perror("Error opening student file");
         exit(EXIT_FAILURE);
@@ -47,7 +47,7 @@ bool update_student_status(const char* student_id, const char* new_status) {
     close_file(read_fp);
     close_file(temp_fp);
     remove(path);
-    rename("../../data/Student/temp_student.dat", path);
+    rename("./data/Student/temp_student.dat", path);
     return true;
 }
 
@@ -56,7 +56,7 @@ bool update_student_info(const char* student_id, const char* new_name, const cha
     snprintf(path, sizeof(path), "%s%s.dat", STUDENT_FOLDER, student_id);
 
     FILE* read_fp = open_file(path, "r");
-    FILE* temp_fp = fopen("../../data/Student/temp_student.dat", "w");
+    FILE* temp_fp = fopen("./data/Student/temp_student.dat", "w");
     if (read_fp == NULL || temp_fp == NULL) {
         perror("Error opening student file");
         exit(EXIT_FAILURE);
@@ -80,7 +80,7 @@ bool update_student_info(const char* student_id, const char* new_name, const cha
     close_file(read_fp);
     close_file(temp_fp);
     remove(path);
-    rename("../../data/Student/temp_student.dat", path);
+    rename("./data/Student/temp_student.dat", path);
     return true;
 }
 // Deletes a student's data file based on their student ID

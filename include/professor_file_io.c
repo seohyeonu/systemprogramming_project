@@ -8,8 +8,8 @@
 #include "common.h"
 #include <stdlib.h>
 
-#define PROFESSOR_DIR "../../data/professors"
-#define GRADE_DIR "../../data/Grade"
+#define PROFESSOR_DIR "./data/professors"
+#define GRADE_DIR "./data/Grade"
 
 // Creates a grade file for the given subject if it doesn't exist.
 static void create_grade_file(const char *subject) {
@@ -48,7 +48,7 @@ void trim_whitespace(char* str) {
 }
 
 void setup_professor_profile(const char* professor_id) {
-    char prof_dir[] = "../../data/professors";
+    char prof_dir[] = "./data/professors";
     struct stat st = {0};
     // Ensure professor directory exists
     if (stat(prof_dir, &st) == -1) {
@@ -82,7 +82,7 @@ void setup_professor_profile(const char* professor_id) {
     close_file(fp);
 
     // Ensure Grade directory exists
-    char grade_dir[] = "../../data/Grade";
+    char grade_dir[] = "./data/Grade";
     if (stat(grade_dir, &st) == -1) {
         mkdir(grade_dir, 0755);
     }

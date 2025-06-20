@@ -8,8 +8,8 @@
 #include <pwd.h>
 #include "../../include/common.h"  
 
-#define STUDENT_DIR   "../../data/Student"
-#define GRADE_DIR     "../../data/Grade"
+#define STUDENT_DIR   "./data/Student"
+#define GRADE_DIR     "./data/Grade"
 #define MAX_LINE_LEN  256
 #define MAX_NAME_LEN  64
 

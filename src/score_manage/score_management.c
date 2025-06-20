@@ -11,9 +11,9 @@
 #include "../../include/timestamp.h"         // get_current_timestamp
 #include "../../include/professor_file_io.h" // create_grade_file, delete_grade_file
 
-#define PROFESSOR_DIR "../../data/professors"
-#define STUDENT_DIR   "../../data/Student"
-#define GRADE_DIR     "../../data/Grade"
+#define PROFESSOR_DIR "./data/professors"
+#define STUDENT_DIR   "./data/Student"
+#define GRADE_DIR     "./data/Grade"
 #define MAX_SUBJECTS  10
 #define MAX_NAME_LEN  64
 #define MAX_STUDENTS 1000
