@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -O2
 TARGET = student_management
-SOURCES = main.c student_management.c grade_management.c grade_view.c system_utils.c
+SOURCES = main.c permission.c data_manager.c student_management.c student_operations.c student_modify.c student_delete.c grade_management.c subject_management.c subject_operations.c subject_remove.c grade_input.c grade_operations.c grade_modify.c grade_view.c system_utils.c system_status.c
 OBJECTS = $(SOURCES:.c=.o)
 HEADERS = student_management.h
 

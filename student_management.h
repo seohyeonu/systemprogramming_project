@@ -75,6 +75,7 @@ void remove_subject();
 void list_subjects();
 void input_grades();
 void modify_grades();
+void modify_grade_in_file(const char* filename, const char* student_id, int new_score);
 void load_subjects();
 
 // 성적 열람 함수
