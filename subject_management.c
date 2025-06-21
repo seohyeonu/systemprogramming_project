@@ -17,6 +17,31 @@ void load_subjects() {
             
             strcpy(subjects[subject_count].name, subject_name);
             subjects[subject_count].created_time = time(NULL);
+            
+            // 교과목 파일에서 학과 정보 읽기
+            char filename[100];
+            sprintf(filename, "Grade/%s.dat", subject_name);
+            FILE *subject_file = fopen(filename, "r");
+            if (subject_file != NULL) {
+                char line[256];
+                while (fgets(line, sizeof(line), subject_file)) {
+                    if (strstr(line, "# 학과:") != NULL) {
+                        // "# 학과: 컴퓨터공학과" 형태에서 학과명 추출
+                        char *dept_start = strstr(line, ":");
+                        if (dept_start != NULL) {
+                            dept_start += 1; // ":" 다음으로 이동
+                            while (*dept_start == ' ') dept_start++; // 공백 제거
+                            // 개행 문자 제거
+                            char *newline = strchr(dept_start, '\n');
+                            if (newline) *newline = '\0';
+                            strcpy(subjects[subject_count].department, dept_start);
+                        }
+                        break;
+                    }
+                }
+                fclose(subject_file);
+            }
+            
             subject_count++;
         }
     }
