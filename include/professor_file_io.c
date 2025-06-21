@@ -52,7 +52,7 @@ void setup_professor_profile(const char* professor_id) {
     struct stat st = {0};
     // Ensure professor directory exists
     if (stat(prof_dir, &st) == -1) {
-        mkdir(prof_dir, 0755);
+        mkdir(prof_dir, 0777);
     }
     // Construct profile path
     char prof_path[128];
@@ -84,7 +84,7 @@ void setup_professor_profile(const char* professor_id) {
     // Ensure Grade directory exists
     char grade_dir[] = "./data/Grade";
     if (stat(grade_dir, &st) == -1) {
-        mkdir(grade_dir, 0755);
+        mkdir(grade_dir, 0777);
     }
 
     // Create empty grade files for each subject

@@ -43,11 +43,11 @@ void ensure_student_directory_exists() {
     const char* path = "./data/Student";
     struct stat st;
     if (stat(path, &st) == -1) {
-        if (mkdir("./data", 0755) == -1 && errno != EEXIST) {
+        if (mkdir("./data", 0777) == -1 && errno != EEXIST) {
             perror("Failed to create ./data directory");
             exit(EXIT_FAILURE);
         }
-        if (mkdir(path, 0755) == -1) {
+        if (mkdir(path, 0777) == -1) {
             perror("Failed to create ./data/Student directory");
             exit(EXIT_FAILURE);
         }
@@ -58,10 +58,10 @@ void ensure_grade_directory_exists() {
     const char* path = "./data/Grade";
     struct stat st;
     if (stat(path, &st) == -1) {
-        if (mkdir("./data", 0755) == -1 && errno != EEXIST) {
+        if (mkdir("./data", 0777) == -1 && errno != EEXIST) {
             perror("Failed to create ./data");
         }
-        if (mkdir(path, 0755) == -1) {
+        if (mkdir(path, 0777) == -1) {
             perror("Failed to create ./data/Grade");
         }
     }
@@ -70,11 +70,11 @@ void ensure_grade_directory_exists() {
 void ensure_professor_directory_exists() {
     struct stat st;
     if (stat(PROFESSOR_DIR, &st) == -1) {
-        if (mkdir("./data", 0755) == -1 && errno != EEXIST) {
+        if (mkdir("./data", 0777) == -1 && errno != EEXIST) {
             perror("Failed to create data directory");
             exit(EXIT_FAILURE);
         }
-        if (mkdir(PROFESSOR_DIR, 0755) == -1) {
+        if (mkdir(PROFESSOR_DIR, 0777) == -1) {
             perror("Failed to create professors directory");
             exit(EXIT_FAILURE);
         }

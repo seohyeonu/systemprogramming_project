@@ -25,8 +25,8 @@ int main() {
     require_professor();
     // Ensure necessary directories exist
     struct stat st = {0};
-    if (stat(PROFESSOR_DIR, &st) == -1) mkdir(PROFESSOR_DIR, 0755);
-    if (stat(GRADE_DIR, &st) == -1) mkdir(GRADE_DIR, 0755);
+    if (stat(PROFESSOR_DIR, &st) == -1) mkdir(PROFESSOR_DIR, 0777);
+    if (stat(GRADE_DIR, &st) == -1) mkdir(GRADE_DIR, 0777);
 
     // Setup or load professor profile
     char professor_id[MAX_NAME_LEN];
