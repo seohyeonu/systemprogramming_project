@@ -9,7 +9,7 @@ void check_user_permission() {
     
     if (uid == 0) {
         printf("관리자 권한으로 실행 중\n");
-    } else if (uid >= 1000 && uid <= 2000) {
+    } else if (uid >= 1000 && uid <= 1002) {
         printf("교수 권한으로 실행 중\n");
     } else {
         printf("학생 권한으로 실행 중\n");
@@ -24,11 +24,11 @@ int is_admin() {
 // 교수 권한 확인
 int is_professor() {
     uid_t uid = getuid();
-    return (uid >= 1000 && uid <= 2000);
+    return (uid >= 1000 && uid <= 1002);
 }
 
 // 학생 권한 확인
 int is_student() {
     uid_t uid = getuid();
-    return (uid > 2000);
+    return (uid > 1002);
 } 
