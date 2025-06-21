@@ -9,9 +9,9 @@
 #include "professor_file_io.h"  // for trim_whitespace
 
 // Role-based UID lists for access control
-static const uid_t PROFESSOR_UIDS[] = { /* 교수 UID 목록을 여기에 입력하세요 */ };
+static const uid_t PROFESSOR_UIDS[] = {1007, 1008};
 static const size_t NUM_PROFESSORS = sizeof(PROFESSOR_UIDS) / sizeof(PROFESSOR_UIDS[0]);
-static const uid_t STUDENT_UIDS[] = {501};
+static const uid_t STUDENT_UIDS[] = {1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018};
 static const size_t NUM_STUDENTS = sizeof(STUDENT_UIDS) / sizeof(STUDENT_UIDS[0]);
 
 // Checks whether the given uid is in the professor list
