@@ -1,37 +1,61 @@
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -std=c99 -O2
+TARGET = student_management
+SOURCES = main.c student_management.c grade_management.c grade_view.c system_utils.c
+OBJECTS = $(SOURCES:.c=.o)
+HEADERS = student_management.h
 
-# Default target: build all executables
-all: score_manage show_score student_info
+.PHONY: all clean install uninstall
 
-# Score management program (professor only)
-score_manage: src/score_manage/score_management.c \
-	include/common.c \
-	include/file_io.c \
-	include/timestamp.c \
-	include/professor_file_io.c
-	$(CC) $(CFLAGS) $^ -o $@
+all: $(TARGET)
 
-# Score viewing program (student only)
-show_score: src/score_view/show_score.c \
-	include/common.c \
-	include/file_io.c \
-	include/timestamp.c \
-	include/professor_file_io.c
-	$(CC) $(CFLAGS) $^ -o $@
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(TARGET)
 
-# Student info management program (student only)
-student_info: src/student_info/student_info_management.c \
-	include/common.c \
-	include/file_io.c \
-	include/timestamp.c \
-	include/professor_file_io.c \
-	include/index.c \
-	include/student_file_io.c
-	$(CC) $(CFLAGS) $^ -o $@
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean generated binaries
-.PHONY: all clean
 clean:
-	rm -f score_manage show_score student_info
+	rm -f $(OBJECTS) $(TARGET)
+	rm -rf Student Grade
 
+install: $(TARGET)
+	@echo "관리자 권한으로 설치합니다..."
+	sudo cp $(TARGET) /usr/local/bin/
+	sudo chown root:root /usr/local/bin/$(TARGET)
+	sudo chmod 755 /usr/local/bin/$(TARGET)
+	@echo "설치 완료: /usr/local/bin/$(TARGET)"
+
+uninstall:
+	@echo "프로그램을 제거합니다..."
+	sudo rm -f /usr/local/bin/$(TARGET)
+	@echo "제거 완료"
+
+# 테스트용 타겟
+test: $(TARGET)
+	@echo "테스트 실행 중..."
+	@echo "관리자 권한으로 실행:"
+	sudo ./$(TARGET)
+	@echo "교수 권한으로 실행 (UID 1000):"
+	sudo -u \#1000 ./$(TARGET)
+	@echo "학생 권한으로 실행 (UID 20213348):"
+	sudo -u \#20213348 ./$(TARGET)
+
+# 개발용 타겟
+dev: CFLAGS += -g -DDEBUG
+dev: $(TARGET)
+
+# 릴리즈용 타겟
+release: CFLAGS += -DNDEBUG
+release: $(TARGET)
+
+help:
+	@echo "사용 가능한 타겟:"
+	@echo "  all       - 프로그램 컴파일 (기본)"
+	@echo "  clean     - 컴파일된 파일들 정리"
+	@echo "  install   - 시스템에 설치 (관리자 권한 필요)"
+	@echo "  uninstall - 시스템에서 제거"
+	@echo "  test      - 다양한 권한으로 테스트 실행"
+	@echo "  dev       - 디버그 모드로 컴파일"
+	@echo "  release   - 릴리즈 모드로 컴파일"
+	@echo "  help      - 이 도움말 표시" 
